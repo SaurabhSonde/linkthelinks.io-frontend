@@ -1,0 +1,89 @@
+.profilePic {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 50px;
+}
+
+.profilePic img {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  border: 2px solid black;
+}
+
+.profilePic span {
+  font-weight: 500;
+  font-size: 25px;
+  margin-top: 20px;
+}
+
+.socialMedia {
+  display: flex;
+  justify-content: center;
+}
+
+.socialMedia img {
+  margin: 30px;
+}
+
+.bio {
+  margin: auto;
+  max-width: 539px;
+  border: 2px solid black;
+  border-radius: 30px;
+  padding: 8px;
+  margin-top: 20px;
+}
+
+.bio p {
+  font-family: Poppins;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 20px;
+  line-height: 37px;
+  text-align: center;
+}
+
+.linkDiv {
+  margin-top: 80px;
+}
+
+.link {
+  margin: auto;
+  max-width: 800px;
+  border: 2px solid #000000;
+  box-sizing: border-box;
+  border-radius: 30px;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 40px;
+  padding: 15px;
+}
+
+.link span {
+  font-family: Poppins;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 20px;
+  line-height: 30px;
+  text-align: center;
+  color: #000000;
+}
+
+.float {
+  position: fixed;
+  width: 80px;
+  height: 80px;
+  bottom: 40px;
+  right: 40px;
+  border-radius: 50%;
+  text-align: center;
+  border: 3px solid black;
+}
+
+.myfloat {
+  margin-top: 23px;
+}
