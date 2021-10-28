@@ -30,10 +30,11 @@
 .bio {
   margin: auto;
   max-width: 539px;
-  border: 2px solid black;
+  border: 2px solid #f4f5f9;
   border-radius: 30px;
   padding: 8px;
   margin-top: 20px;
+  background-color: #f4f5f9;
 }
 
 .bio p {
@@ -52,7 +53,7 @@
 .link {
   margin: auto;
   max-width: 800px;
-  border: 2px solid #000000;
+  border: 2px solid #f4f5f9;
   box-sizing: border-box;
   border-radius: 30px;
   text-align: center;
@@ -61,6 +62,7 @@
   align-items: center;
   margin-bottom: 40px;
   padding: 15px;
+  background-color: #f4f5f9;
 }
 
 .link span {
@@ -82,6 +84,7 @@
   border-radius: 50%;
   text-align: center;
   border: 3px solid black;
+  background-color: black;
 }
 
 .myfloat {
