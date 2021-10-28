@@ -1,5 +1,7 @@
-import React from "react";
+import React, { useState } from "react";
 import userPageStyle from "../styles/userPage.module.css";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 import Head from "next/head";
 
@@ -18,6 +20,32 @@ export const getServerSideProps = async (ctx) => {
   };
 };
 
+const likeClick = async (linkId) => {
+  return fetch(`http://localhost:5000/api/like/${linkId}`, {
+    method: "PUT",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    },
+  })
+    .then((response) => {
+      likeToast();
+      return response.json();
+    })
+    .catch((err) => console.log(err));
+};
+
+const likeToast = () => {
+  toast("Like❤️", {
+    position: "top-right",
+    autoClose: 5000,
+    hideProgressBar: false,
+    closeOnClick: true,
+    pauseOnHover: true,
+    draggable: true,
+  });
+};
+
 const userPage = ({ userPage }) => {
   return (
     <div>
@@ -27,6 +55,8 @@ const userPage = ({ userPage }) => {
           {`body { background-color: ${userPage.user.backgroundColor};}`}
         </style>
       </Head>
+
+      <ToastContainer />
       <div className={userPageStyle.profilePic}>
         <img src={userPage.user.profilePic}></img>
         <span>@{userPage.user.userName}</span>
@@ -69,12 +99,17 @@ const userPage = ({ userPage }) => {
         {userPage.links.map((link, index) => {
           return (
             <div className={userPageStyle.link} key={index}>
-              <span>{link.title}</span>
+              <a href={link.shortUrl}>{link.title}</a>
+              <img
+                src="/thumbs-up.svg"
+                alt="like"
+                onClick={() => likeClick(link._id)}
+              />
             </div>
           );
         })}
       </div>
-      <a href="#" className={userPageStyle.float}>
+      <a href="http://localhost:3000" className={userPageStyle.float}>
         <img
           src="/floating.svg"
           alt="floating"
