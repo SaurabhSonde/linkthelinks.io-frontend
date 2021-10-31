@@ -9,7 +9,8 @@ export const getServerSideProps = async (ctx) => {
   const user = await fetch(`http://localhost:5000/api/${ctx.params.userPage}`);
 
   const userPage = await user.json();
-  if (!userPage) {
+
+  if (userPage.error) {
     return {
       notFound: true,
     };
