@@ -1,0 +1,149 @@
+.dashboard {
+  display: flex;
+  justify-content: space-between;
+}
+
+.nav {
+  min-width: 350px;
+  height: 100vh;
+  background-color: white;
+  border-right: 1px solid #e4e4e4;
+}
+
+.nav .profile {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding-top: 50px;
+}
+
+.nav .profile img {
+  width: 100px;
+  height: auto;
+  border: 2px solid black;
+  border-radius: 50%;
+}
+
+.nav .profile span {
+  font-family: Poppins;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 20px;
+  line-height: 37px;
+}
+
+.nav .navLinks {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  margin-top: 20px;
+}
+
+.nav .navLinks .btn {
+  position: relative;
+  width: 100%;
+  height: 50px;
+  margin-bottom: 20px;
+  padding: 0 10px;
+  text-align: center;
+  background: white;
+  border: none;
+  margin-top: 10px;
+  cursor: pointer;
+}
+
+.nav .navLinks #btn_container {
+  width: 40px;
+  height: 40px;
+  position: relative;
+}
+
+.nav .navLinks .btn img {
+  display: inline-block;
+  vertical-align: middle;
+  padding: 5px;
+}
+
+.nav .navLinks .btn span {
+  display: inline-block;
+  width: 130px;
+  vertical-align: middle;
+  font-family: Poppins;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 20px;
+  line-height: 37px;
+  margin-left: 60px;
+  text-align: left;
+}
+
+.analytics {
+  min-width: 290px;
+  min-height: 90%;
+  margin-right: 40px;
+  background-color: black;
+  margin-top: 50px;
+  border-radius: 40px;
+  color: white;
+}
+
+.analytics h1 {
+  padding-top: 40px;
+  font-family: Poppins;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 25px;
+  color: #ffffff;
+  padding-left: 50px;
+}
+
+.statistics {
+  display: flex;
+  flex-direction: column;
+}
+
+.statistics .btnAnalytics {
+  position: relative;
+  width: 100%;
+  height: 50px;
+  margin-bottom: 20px;
+  padding: 0 10px;
+  text-align: center;
+  background-color: black;
+  border: none;
+  margin-top: 10px;
+  cursor: pointer;
+}
+
+.statistics #btn_container {
+  width: 40px;
+  height: 40px;
+  position: relative;
+}
+
+.statistics .btnAnalytics img {
+  display: inline-block;
+  vertical-align: middle;
+  padding: 5px;
+}
+
+.statistics .btnAnalytics span {
+  display: inline-block;
+  width: 130px;
+  vertical-align: middle;
+  font-family: Poppins;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 20px;
+  line-height: 37px;
+  margin-left: 30px;
+  text-align: left;
+  color: white;
+}
+
+.statistics .btnAnalytics p {
+  font-size: 10px;
+  color: white;
+}
