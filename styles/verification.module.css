@@ -1,0 +1,60 @@
+.headings {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.headings h1 {
+  font-family: Poppins;
+  font-style: normal;
+  font-weight: lighter;
+  font-size: 30px;
+  text-align: center;
+}
+
+.headings span {
+  font-family: Poppins;
+  font-style: normal;
+  font-weight: lighter;
+  font-size: 18px;
+  color: gray;
+  text-align: center;
+}
+
+.headings img {
+  width: 33%;
+  height: 33%;
+}
+
+.headings .para {
+  max-width: 800px;
+  justify-content: center;
+  text-align: center;
+}
+
+.headings .para span {
+  font-family: Poppins;
+  font-style: normal;
+  font-weight: lighter;
+  font-size: 16px;
+  color: gray;
+}
+
+.headings .buttons {
+  margin-top: 20px;
+}
+
+.headings .buttons button {
+  padding: 12px 22px 12px 22px;
+  text-align: center;
+  font-family: Poppins;
+  font-style: normal;
+  font-weight: lighter;
+  font-size: 12px;
+  color: white;
+  border: 1px solid black;
+  border-radius: 10px;
+  background-color: black;
+  cursor: pointer;
+}
