@@ -1,7 +1,8 @@
-import "../styles/globals.css";
-import { UserContext } from "../components/user";
-import { isAuthenticated } from "../apiHelpers/authHelper";
-import React, { useState, useEffect } from "react";
+import '../styles/globals.css';
+import { UserContext } from '../components/user';
+import { AppContextProvider } from '../store/DataProvider';
+import { isAuthenticated } from '../apiHelpers/authHelper';
+import React, { useState, useEffect } from 'react';
 
 function MyApp({ Component, pageProps }) {
   const [user, setUser] = useState(null);
@@ -19,9 +20,11 @@ function MyApp({ Component, pageProps }) {
     return <h1>Sorry, you don't have access</h1>;
   }
   return (
-    <UserContext.Provider value={user}>
-      <Component {...pageProps} />
-    </UserContext.Provider>
+    <AppContextProvider>
+      <UserContext.Provider value={user}>
+        <Component {...pageProps} />
+      </UserContext.Provider>
+    </AppContextProvider>
   );
 }
 
