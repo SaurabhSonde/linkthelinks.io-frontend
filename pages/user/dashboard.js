@@ -2,13 +2,19 @@ import React, { useState, useEffect } from "react";
 import dashStyle from "../../styles/dashboard.module.css";
 import { isAuthenticated } from "../../apiHelpers/authHelper";
 import Link from "next/link";
-import { getUserById } from "../../apiHelpers/statisticsHelper";
+import {
+  getMostClickLinks,
+  getUserById,
+} from "../../apiHelpers/statisticsHelper";
+import Head from "next/head";
 
 const userDashboard = () => {
   const [userInfo, setUserInfo] = useState({});
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState(false);
+  const [mostClickLinks, setMostClickLinks] = useState([]);
   const { user, token } = isAuthenticated();
+
   const loadUserInfo = () => {
     getUserById(user._id, token).then((data) => {
       if (data.error) {
@@ -21,8 +27,21 @@ const userDashboard = () => {
     });
   };
 
+  const loadMostClickLinks = () => {
+    getMostClickLinks(user._id, token).then((data) => {
+      if (data.error) {
+        setSuccess(false);
+        setError(data.error);
+      } else {
+        setError(false);
+        setMostClickLinks(data);
+      }
+    });
+  };
+
   useEffect(() => {
     loadUserInfo();
+    loadMostClickLinks();
   }, []);
 
   const navigation = () => {
@@ -72,15 +91,21 @@ const userDashboard = () => {
           <div className={dashStyle.statistics}>
             <button className={dashStyle.btnAnalytics}>
               <img src="/TotalLinks.svg" />
-              <span>{userInfo.totalClicks}</span>
+              <span title="Total Links" className={dashStyle.tooltip}>
+                {userInfo.totalClicks}
+              </span>
             </button>
             <button className={dashStyle.btnAnalytics}>
               <img src="/Visitors.svg" />
-              <span>{userInfo.visitors}</span>
+              <span title="New Visitors" className={dashStyle.tooltip}>
+                {userInfo.visitors}
+              </span>
             </button>
             <button className={dashStyle.btnAnalytics}>
               <img src="/TotalClicks.svg" />
-              <span>{userInfo.totalClicks}</span>
+              <span title="Total Clicks" className={dashStyle.tooltip}>
+                {userInfo.totalClicks}
+              </span>
             </button>
             <button className={dashStyle.btnAnalytics}>
               <img src="/Share.svg" />
@@ -92,9 +117,47 @@ const userDashboard = () => {
     );
   };
 
+  const middleSection = () => {
+    return (
+      <div className={dashStyle.middleSection}>
+        <h1>Hello {user.name}👋🏻</h1>
+        <h2>Welcome Back!</h2>
+        <div className={dashStyle.boxOne}></div>
+        <div className={dashStyle.boxContainer}>
+          <div className={dashStyle.boxTwo}>
+            <img src="/MostClicks.svg" alt="most clicks" />
+            <h1>Most Clicks</h1>
+            {mostClickLinks.map((link, index) => {
+              return (
+                <div className={dashStyle.mostClickLinks} key={index}>
+                  <a href={link.shortUrl}>{link.title}</a>
+                </div>
+              );
+            })}
+          </div>
+          <div className={dashStyle.boxThree}>
+            <img src="/MostVisits.svg" alt="most clicks" />
+            <h1>Most Visits</h1>
+            {mostClickLinks.map((link, index) => {
+              return (
+                <div className={dashStyle.mostVisits} key={index}>
+                  <a href={link.shortUrl}>{link.title}</a>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      </div>
+    );
+  };
+
   return (
     <div className={dashStyle.dashboard}>
+      <Head>
+        <title>@{user.userName}</title>
+      </Head>
       {navigation()}
+      {middleSection()}
       {blackAnalytics()}
     </div>
   );
