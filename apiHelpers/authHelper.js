@@ -1,4 +1,6 @@
 const Api = "http://localhost:5000/api";
+import jwtDecode from "jwt-decode";
+import Router from "next/router";
 
 export const Signup = (user) => {
   return fetch(`${Api}/signup`, {
@@ -57,7 +59,16 @@ export const isAuthenticated = () => {
   if (typeof window == "undefined") {
     return false;
   }
+
   if (localStorage.getItem("jwt")) {
+    const token = localStorage.getItem("jwt");
+    const decoded = jwtDecode(token);
+    if (Date.now() >= decoded.exp * 1000) {
+      localStorage.removeItem("jwt");
+      Router.push("/signin");
+      return false;
+    }
+
     return JSON.parse(localStorage.getItem("jwt"));
   } else {
     return false;
