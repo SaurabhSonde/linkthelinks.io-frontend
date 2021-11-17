@@ -1,19 +1,23 @@
-import React, { useState, useEffect } from "react";
-import dashStyle from "../../styles/dashboard.module.css";
-import { isAuthenticated } from "../../apiHelpers/authHelper";
-import Link from "next/link";
-import {
-  getMostClickLinks,
-  getUserById,
-} from "../../apiHelpers/statisticsHelper";
-import Head from "next/head";
+import React, { useState, useEffect, useContext } from 'react';
+import dashStyle from '../../styles/dashboard.module.css';
+import { isAuthenticated } from '../../apiHelpers/authHelper';
+import Link from 'next/link';
+import { getUserById } from '../../apiHelpers/statisticsHelper';
+import Head from 'next/head';
+import AppContext from '../../store/DataProvider';
+import Center from '../../components/Center';
 
 const userDashboard = () => {
   const [userInfo, setUserInfo] = useState({});
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState(false);
-  const [mostClickLinks, setMostClickLinks] = useState([]);
   const { user, token } = isAuthenticated();
+
+  const context = useContext(AppContext);
+
+  const changeTheContainers = (centerContainer) => {
+    context.changeCenterContainer(centerContainer);
+  };
 
   const loadUserInfo = () => {
     getUserById(user._id, token).then((data) => {
@@ -27,21 +31,9 @@ const userDashboard = () => {
     });
   };
 
-  const loadMostClickLinks = () => {
-    getMostClickLinks(user._id, token).then((data) => {
-      if (data.error) {
-        setSuccess(false);
-        setError(data.error);
-      } else {
-        setError(false);
-        setMostClickLinks(data);
-      }
-    });
-  };
-
   useEffect(() => {
     loadUserInfo();
-    loadMostClickLinks();
+    changeTheContainers('home');
   }, []);
 
   const navigation = () => {
@@ -53,11 +45,17 @@ const userDashboard = () => {
             <span>{user.name}</span>
           </div>
           <div className={dashStyle.navLinks}>
-            <button className={dashStyle.btn}>
+            <button
+              className={dashStyle.btn}
+              onClick={() => changeTheContainers('home')}
+            >
               <img src="/home.svg" />
               <span>Home</span>
             </button>
-            <button className={dashStyle.btn}>
+            <button
+              className={dashStyle.btn}
+              onClick={() => changeTheContainers('links')}
+            >
               <img src="/links.svg" />
               <span>Links</span>
             </button>
@@ -117,47 +115,13 @@ const userDashboard = () => {
     );
   };
 
-  const middleSection = () => {
-    return (
-      <div className={dashStyle.middleSection}>
-        <h1>Hello {user.name}👋🏻</h1>
-        <h2>Welcome Back!</h2>
-        <div className={dashStyle.boxOne}></div>
-        <div className={dashStyle.boxContainer}>
-          <div className={dashStyle.boxTwo}>
-            <img src="/MostClicks.svg" alt="most clicks" />
-            <h1>Most Clicks</h1>
-            {mostClickLinks.map((link, index) => {
-              return (
-                <div className={dashStyle.mostClickLinks} key={index}>
-                  <a href={link.shortUrl}>{link.title}</a>
-                </div>
-              );
-            })}
-          </div>
-          <div className={dashStyle.boxThree}>
-            <img src="/MostVisits.svg" alt="most clicks" />
-            <h1>Most Visits</h1>
-            {mostClickLinks.map((link, index) => {
-              return (
-                <div className={dashStyle.mostVisits} key={index}>
-                  <a href={link.shortUrl}>{link.title}</a>
-                </div>
-              );
-            })}
-          </div>
-        </div>
-      </div>
-    );
-  };
-
   return (
     <div className={dashStyle.dashboard}>
       <Head>
         <title>@{user.userName}</title>
       </Head>
       {navigation()}
-      {middleSection()}
+      <Center />
       {blackAnalytics()}
     </div>
   );
