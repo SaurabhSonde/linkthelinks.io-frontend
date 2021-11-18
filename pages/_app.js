@@ -6,12 +6,13 @@ import React, { useState, useEffect } from 'react';
 
 function MyApp({ Component, pageProps }) {
   const [user, setUser] = useState(null);
+
   useEffect(() => {
     if (isAuthenticated) {
       const user = isAuthenticated();
       setUser(user);
     }
-  }, []);
+  }, [pageProps]);
 
   if (pageProps.protected && !user) {
     return <h1>You are not signed in.</h1>;
