@@ -1,17 +1,17 @@
-import React, { useState } from "react";
+import React, { useState } from 'react';
 import {
   Signin,
   authenticate,
   isAuthenticated,
-} from "../apiHelpers/authHelper";
-import signinStyle from "../styles/signin.module.css";
-import Router from "next/router";
+} from '../apiHelpers/authHelper';
+import signinStyle from '../styles/signin.module.css';
+import Router from 'next/router';
 
 const signup = () => {
   const [values, setValues] = useState({
-    email: "a@saurabh.com",
-    password: "Test@12345",
-    error: "",
+    email: 'a@saurabh.com',
+    password: 'Test@12345',
+    error: '',
     loading: false,
     didRedirect: false,
   });
@@ -37,20 +37,18 @@ const signup = () => {
           });
         }
       })
-      .catch(console.log("Signin request failed"));
+      .catch((err) => {
+        console.log(err);
+      });
   };
 
   const performRedirect = () => {
     if (didRedirect) {
       if (user && user.role === 1) {
-        return Router.push("/admin/dashboard");
+        Router.push('/admin/dashboard');
       } else {
-        Router.push("/user/dashboard");
+        Router.push('/user/dashboard');
       }
-    }
-
-    if (isAuthenticated()) {
-      Router.push("/user/dashboard");
     }
   };
   const loadingMessage = () => {
@@ -76,14 +74,14 @@ const signup = () => {
               <input
                 type="text"
                 placeholder="Email"
-                onChange={handleChange("email")}
+                onChange={handleChange('email')}
                 value={email}
               />
 
               <input
                 type="text"
                 placeholder="Password"
-                onChange={handleChange("password")}
+                onChange={handleChange('password')}
                 value={password}
               />
               <br />
