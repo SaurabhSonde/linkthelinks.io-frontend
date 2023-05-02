@@ -1,6 +1,7 @@
-const Api = "http://localhost:5000/api";
+const Api = "http://localhost:4000/api";
 
 export const getUserById = (userId, token) => {
+  console.log(userId);
   return fetch(`${Api}/user/${userId}`, {
     method: "GET",
     headers: {

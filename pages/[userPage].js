@@ -6,7 +6,7 @@ import "react-toastify/dist/ReactToastify.css";
 import Head from "next/head";
 
 export const getServerSideProps = async (ctx) => {
-  const user = await fetch(`http://localhost:5000/api/${ctx.params.userPage}`);
+  const user = await fetch(`http://localhost:4000/api/${ctx.params.userPage}`);
 
   const userPage = await user.json();
 
@@ -22,7 +22,7 @@ export const getServerSideProps = async (ctx) => {
 };
 
 const likeClick = async (linkId) => {
-  return fetch(`http://localhost:5000/api/like/${linkId}`, {
+  return fetch(`http://localhost:4000/api/like/${linkId}`, {
     method: "PUT",
     headers: {
       Accept: "application/json",
