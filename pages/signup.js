@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Signup } from "../apiHelpers/authHelper";
 import signupStyle from "../styles/signup.module.css";
 import Router from "next/router";
+import { toast } from 'react-toastify';
 
 const signup = () => {
   const [values, setValues] = useState({
@@ -25,9 +26,9 @@ const signup = () => {
     setValues({ ...values, error: false });
     Signup({ name, userName, email, mobile, password })
       .then((data) => {
-        console.log(data);
         if (data?.error) {
           setValues({ ...values, error: data.error, success: false });
+          return toast.error(data.error)
         } else {
           setValues({
             ...values,
@@ -38,7 +39,8 @@ const signup = () => {
             error: "",
             success: true,
           });
-          Router.push("/email/verification");
+          localStorage.setItem('token', data.token);
+          Router.push("/dashboard");
         }
       })
       .catch(console.log("Error in signup"));

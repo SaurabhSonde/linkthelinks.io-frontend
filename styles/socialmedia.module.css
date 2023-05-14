@@ -1,0 +1,90 @@
+.socialMediaContainer {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 30px;
+}
+
+.socialMediaContainer .infoContainer {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    align-items: center;
+    flex-direction: column;
+    gap: 20px;
+    width: 100%;
+    background: #FFF0D3;
+    padding: 30px;
+    border-radius: 30px;
+    padding: 30px;
+    min-height: 100px;
+    max-height: 300px;
+    overflow: scroll;
+}
+
+.socialMediaContainer .infoContainer input {
+    background: #E1D3B7;
+    border-radius: 18px;
+    border: none;
+    width: 100%;
+    height: 80px;
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 45px;
+    color: #000000;
+    padding: 20px;
+}
+
+.socialMediaContainer .infoContainer input:focus {
+    outline: none;
+}
+
+.socialMediaContainer .infoContainer button {
+    background: #E1D3B7;
+    border-radius: 15px;
+    border: none;
+    width: 100%;
+    height: 80px;
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 25px;
+    line-height: 45px;
+    color: #000000;
+    padding: 20px;
+    cursor: pointer;
+}
+
+.socialMediaContainer .linksContainer {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 330px;
+    background: #FFF0D3;
+    border-radius: 30px;
+}
+
+.socialMediaContainer .linksContainer .header {
+    background: #E1D3B7;
+    position: static;
+    height: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+}
+
+.socialMediaContainer .linksContainer .link {
+    display: flex;
+    justify-content: left;
+    align-items: center;
+    height: 50px;
+    padding: 20px;
+    background: #E1D3B7;
+    border-radius: 18px;
+}

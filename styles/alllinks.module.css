@@ -1,0 +1,57 @@
+.allLinksContainer {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.allLinksContainer .linksContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 20px;
+    width: 650px;
+    background-color: #F4F5F9;
+    padding: 30px;
+    border-radius: 30px;
+}
+
+.allLinksContainer .linksContainer .link {
+    display: flex;
+    justify-content: space-between;
+    background: #DCDDE0;
+    border-radius: 20px;
+    padding: 15px;
+    width: 100%;
+}
+
+.allLinksContainer .linksContainer .link svg {
+    cursor: pointer;
+}
+
+.allLinksContainer .linksContainer .link svg:hover path {
+    stroke: red;
+}
+
+.allLinksContainer .addLinkButtonContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+    border-radius: 20px;
+    width: 650px;
+    height: 70px;
+    background-color: #F4F5F9;
+}
+
+.allLinksContainer .addLinkButtonContainer button {
+    background: #DCDDE0;
+    border: none;
+    width: 50%;
+    height: 50px;
+    border-radius: 15px;
+    font-size: 15px;
+    cursor: pointer;
+}

@@ -2,38 +2,41 @@ import React, { useState } from "react";
 import userPageStyle from "../styles/userPage.module.css";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-
+import axios from 'axios';
 import Head from "next/head";
+import constant from '../constant';
+
 
 export const getServerSideProps = async (ctx) => {
-  const user = await fetch(`http://localhost:4000/api/${ctx.params.userPage}`);
+  try {
+    const response = await axios.get(`${constant.url}/${ctx.params.userPage}`);
+    const { data } = response;
 
-  const userPage = await user.json();
+    if (data.error) {
+      return {
+        notFound: true,
+      };
+    }
 
-  if (userPage.error) {
+    return {
+      props: { userPage: data },
+    };
+  } catch (error) {
+    console.error("Error fetching user page:", error);
     return {
       notFound: true,
     };
   }
-
-  return {
-    props: { userPage },
-  };
 };
 
 const likeClick = async (linkId) => {
-  return fetch(`http://localhost:4000/api/like/${linkId}`, {
-    method: "PUT",
-    headers: {
-      Accept: "application/json",
-      "Content-Type": "application/json",
-    },
-  })
-    .then((response) => {
-      likeToast();
-      return response.json();
-    })
-    .catch((err) => console.log(err));
+  try {
+    await axios.put(`${constant.url}/api/like/${linkId}`)
+    likeToast()
+  } catch (error) {
+    console.log(error)
+    toast.error("Opps, something went wrong!")
+  }
 };
 
 const likeToast = () => {

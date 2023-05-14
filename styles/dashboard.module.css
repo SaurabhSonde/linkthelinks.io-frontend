@@ -152,6 +152,7 @@
   display: inline;
   position: relative;
 }
+
 .tooltip:hover:after {
   display: flex;
   justify-content: center;
@@ -164,6 +165,7 @@
   padding: 5px;
   width: 100px;
 }
+
 .tooltip:hover:before {
   border: solid;
   border-color: #444 transparent;
@@ -201,27 +203,27 @@
 .middleSection .boxContainer {
   display: flex;
   justify-content: space-between;
+  margin-top: 50px;
 }
 
 .middleSection .boxTwo {
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
   margin-top: 10px;
-  height: 401px;
+  max-height: 401px;
   width: 43%;
   border-radius: 30px;
   background: #ffeee2;
   border-radius: 30px;
   text-align: center;
   overflow: scroll;
+  padding: 20px;
 }
 
-.middleSection .boxTwo img {
-  padding-top: 170px;
-  margin-top: 26px;
+.middleSection .boxTwo .header {
+  width: 50px;
 }
+
 
 .middleSection .boxTwo h1 {
   font-family: Poppins;
@@ -244,21 +246,19 @@
 .middleSection .boxThree {
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
   margin-top: 10px;
-  height: 401px;
+  max-height: 401px;
   width: 43%;
+  border-radius: 30px;
+  background: #e6f5fa;
   border-radius: 30px;
   text-align: center;
   overflow: scroll;
-  background: #e6f5fa;
+  padding: 20px;
 }
 
-.middleSection .boxThree img {
-  padding-top: 170px;
-  margin-top: 26px;
-}
+
+
 
 .middleSection .boxThree h1 {
   font-family: Poppins;

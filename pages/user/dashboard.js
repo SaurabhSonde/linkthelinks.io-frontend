@@ -1,17 +1,16 @@
 import React, { useState, useEffect, useContext } from 'react';
 import dashStyle from '../../styles/dashboard.module.css';
-import { isAuthenticated } from '../../apiHelpers/authHelper';
-import Link from 'next/link';
-import { getUserById } from '../../apiHelpers/statisticsHelper';
 import Head from 'next/head';
 import AppContext from '../../store/DataProvider';
 import Center from '../../components/Center';
+import Router from "next/router";
+import axios from 'axios';
+import jwtDecode from 'jwt-decode'
+import constant from '../../constant';
+
 
 const userDashboard = () => {
   const [userInfo, setUserInfo] = useState({});
-  const [success, setSuccess] = useState(false);
-  const [error, setError] = useState(false);
-  const { user, token } = isAuthenticated();
 
   const context = useContext(AppContext);
 
@@ -19,16 +18,20 @@ const userDashboard = () => {
     context.changeCenterContainer(centerContainer);
   };
 
-  const loadUserInfo = () => {
-    getUserById(user._id, token).then((data) => {
-      if (data.error) {
-        setSuccess(false);
-        setError(data.error);
-      } else {
-        setError(false);
-        setUserInfo(data);
-      }
-    });
+  const loadUserInfo = async () => {
+    try {
+      const token = localStorage.getItem('token')
+      const user = jwtDecode(token)
+      const response = await axios.get(`${constant.url}/user/${user._id}`, {
+        headers: {
+          Accept: 'application/json',
+          Authorization: `Bearer ${token}`,
+        }
+      })
+      setUserInfo(response.data)
+    } catch (error) {
+      console.log(error)
+    }
   };
 
   useEffect(() => {
@@ -41,8 +44,8 @@ const userDashboard = () => {
       <div>
         <div className={dashStyle.nav}>
           <div className={dashStyle.profile}>
-            <img src={user.profilePic} alt="profile pic" />
-            <span>{user.name}</span>
+            {/* <img src={user.profilePic} alt="profile pic" /> */}
+            <span>{userInfo.name}</span>
           </div>
           <div className={dashStyle.navLinks}>
             <button
@@ -59,21 +62,24 @@ const userDashboard = () => {
               <img src="/links.svg" />
               <span>Links</span>
             </button>
-            <button className={dashStyle.btn}>
+            <button className={dashStyle.btn} onClick={() => changeTheContainers('profile')}>
               <img src="/profile.svg" />
               <span>Profile</span>
             </button>
-            <button className={dashStyle.btn}>
+            <button className={dashStyle.btn} onClick={() => changeTheContainers('socialmedia')}>
               <img src="/socialmedia.svg" />
               <span>Social Media</span>
             </button>
             <button className={dashStyle.btn}>
-              <img src="/analytics.svg" />
-              <span>Analytics</span>
+              <img src="/addlinks.svg" />
+              <span>Add Links</span>
             </button>
-            <button className={dashStyle.btn}>
+            <button className={dashStyle.btn} onClick={() => {
+              localStorage.clear()
+              Router.push('/signin')
+            }}>
               <img src="/settings.svg" />
-              <span>Settings</span>
+              <span>Log Out</span>
             </button>
           </div>
         </div>
@@ -118,7 +124,7 @@ const userDashboard = () => {
   return (
     <div className={dashStyle.dashboard}>
       <Head>
-        <title>@{user.userName}</title>
+        <title>@{userInfo.userName}</title>
       </Head>
       {navigation()}
       <Center />

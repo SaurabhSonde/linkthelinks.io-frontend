@@ -1,36 +1,43 @@
 import React, { useState, useEffect } from 'react';
-import { isAuthenticated } from '../apiHelpers/authHelper';
 import dashStyle from '../styles/dashboard.module.css';
-import { getMostClickLinks, getUserById } from '../apiHelpers/statisticsHelper';
+import axios from 'axios'
+import constant from '../constant';
+import jwtDecode from 'jwt-decode'
 const Home = () => {
   const [userInfo, setUserInfo] = useState({});
   const [mostClickLinks, setMostClickLinks] = useState([]);
-  const [success, setSuccess] = useState(false);
-  const [error, setError] = useState(false);
-  const { user, token } = isAuthenticated();
 
-  const loadUserInfo = () => {
-    getUserById(user._id, token).then((data) => {
-      if (data.error) {
-        setSuccess(false);
-        setError(data.error);
-      } else {
-        setError(false);
-        setUserInfo(data);
-      }
-    });
+
+  const loadUserInfo = async () => {
+    try {
+      const token = localStorage.getItem('token')
+      const user = jwtDecode(token)
+      const response = await axios.get(`${constant.url}/user/${user._id}`, {
+        headers: {
+          Accept: 'application/json',
+          Authorization: `Bearer ${token}`,
+        }
+      })
+      setUserInfo(response.data)
+    } catch (error) {
+      console.log(error)
+    }
   };
 
-  const loadMostClickLinks = () => {
-    getMostClickLinks(user._id, token).then((data) => {
-      if (data.error) {
-        setSuccess(false);
-        setError(data.error);
-      } else {
-        setError(false);
-        setMostClickLinks(data);
-      }
-    });
+  const loadMostClickLinks = async () => {
+    try {
+      const token = localStorage.getItem('token')
+      const user = jwtDecode(token)
+      const response = await axios.get(`${constant.url}/get/most/clicks/${user._id}`, {
+        headers: {
+          Accept: 'application/json',
+          Authorization: `Bearer ${token}`,
+        }
+      })
+      setMostClickLinks(response.data)
+    } catch (error) {
+      console.log(error)
+    }
   };
 
   useEffect(() => {
@@ -39,7 +46,7 @@ const Home = () => {
   }, []);
   return (
     <div className={dashStyle.middleSection}>
-      <h1>Hello {user.name}👋🏻</h1>
+      <h1>Hello {userInfo.name}👋🏻</h1>
       <div className={dashStyle.boxOne}>
         <div className={dashStyle.views}>
           <img src="/Views.svg" alt="" />
@@ -62,8 +69,10 @@ const Home = () => {
       </div>
       <div className={dashStyle.boxContainer}>
         <div className={dashStyle.boxTwo}>
-          <img src="/MostClicks.svg" alt="most clicks" />
-          <h1>Most Clicks</h1>
+          <div className='header'>
+            <img src="/MostClicks.svg" alt="most clicks" />
+            <h1>Most Clicks</h1>
+          </div>
           {mostClickLinks.map((link, index) => {
             return (
               <div className={dashStyle.mostClickLinks} key={index}>
@@ -73,8 +82,10 @@ const Home = () => {
           })}
         </div>
         <div className={dashStyle.boxThree}>
-          <img src="/MostVisits.svg" alt="most clicks" />
-          <h1>Most Visits</h1>
+          <div className="header">
+            <img src="/MostVisits.svg" alt="most clicks" />
+            <h1>Most Visits</h1>
+          </div>
           {mostClickLinks.map((link, index) => {
             return (
               <div className={dashStyle.mostVisits} key={index}>

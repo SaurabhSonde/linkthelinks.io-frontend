@@ -1,59 +1,36 @@
 import React, { useState } from 'react';
-import {
-  Signin,
-  authenticate,
-  isAuthenticated,
-} from '../apiHelpers/authHelper';
 import signinStyle from '../styles/signin.module.css';
 import Router from 'next/router';
+import axios from 'axios';
+import constant from '../constant'
+
 
 const signup = () => {
   const [values, setValues] = useState({
-    email: 'a@saurabh.com',
-    password: 'Test@12345',
+    email: 'saurabhsonde111@gmail.com',
+    password: 'Saurabh@123',
     error: '',
-    loading: false,
-    didRedirect: false,
   });
 
   const { email, password, error, loading, didRedirect } = values;
-
-  const { user } = isAuthenticated();
 
   const handleChange = (name) => (event) => {
     setValues({ ...values, error: false, [name]: event.target.value });
   };
 
-  const onSubmit = (event) => {
-    event.preventDefault();
-    setValues({ ...values, error: false, loading: true });
-    Signin({ email, password })
-      .then((data) => {
-        if (data.error) {
-          setValues({ ...values, error: data.error, loading: false });
-        } else {
-          authenticate(data, () => {
-            setValues({ ...values, didRedirect: true });
-          });
-        }
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  };
-
-  const performRedirect = () => {
-    if (didRedirect) {
-      if (user && user.role === 1) {
-        Router.push('/admin/dashboard');
-      } else {
-        Router.push('/user/dashboard');
-      }
+  const onSubmit = async (event) => {
+    try {
+      event.preventDefault();
+      setValues({ ...values, error: false, loading: true });
+      const response = await axios.post(`${constant.url}/signin`, { email: values.email, password: values.password })
+      localStorage.setItem('token', response.data.token)
+      Router.push('/user/dashboard');
+    } catch (error) {
+      setValues(...values, error.response.data.error)
+      console.log(error)
     }
   };
-  const loadingMessage = () => {
-    return loading && <h2>Loading</h2>;
-  };
+
 
   const errorMessage = () => {
     return <h5>{error}</h5>;
@@ -107,8 +84,6 @@ const signup = () => {
   return (
     <div>
       {signinForm()}
-      {performRedirect()}
-      {loadingMessage()}
       {errorMessage()}
     </div>
   );

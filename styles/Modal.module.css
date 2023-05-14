@@ -1,0 +1,39 @@
+.container {
+    width: 40%;
+    height: 400px;
+    background: #F4F5F9;
+    z-index: 10;
+    position: absolute;
+    top: 40%;
+    border-radius: 30px;
+    padding: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.container input {
+    width: 100%;
+    height: 50px;
+    border: 1px solid #DCDDE0;
+    background: #DCDDE0;
+    padding: 10px;
+}
+
+.container textarea {
+    width: 100%;
+    border: 1px solid #DCDDE0;
+    background: #DCDDE0;
+    padding: 10px;
+}
+
+.container button {
+    width: 100%;
+    height: 50px;
+    background: #DCDDE0;
+    border: none;
+    font-size: 18px;
+
+}
