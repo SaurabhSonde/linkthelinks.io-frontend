@@ -6,7 +6,7 @@ import constant from '../constant'
 import axios from 'axios';
 
 
-const signup = () => {
+const Signup = () => {
   const [values, setValues] = useState({
     name: "",
     userName: "",
@@ -93,11 +93,11 @@ const signup = () => {
       </div>
 
       <div className={signupStyle.boxTwo}>
-        <img src="/Blob.svg" alt="" srcset="" />
-        <img src="/char.png" alt="" srcset="" />
+        <img src="/Blob.svg" alt="" />
+        <img src="/char.png" alt="" />
       </div>
     </div>
   );
 };
 
-export default signup;
+export default Signup;

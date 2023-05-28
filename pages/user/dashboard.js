@@ -9,7 +9,7 @@ import jwtDecode from 'jwt-decode'
 import constant from '../../constant';
 
 
-const userDashboard = () => {
+const UserDashboard = () => {
   const [userInfo, setUserInfo] = useState({});
 
   const context = useContext(AppContext);
@@ -141,4 +141,4 @@ export async function getStaticProps(context) {
   };
 }
 
-export default userDashboard;
+export default UserDashboard;

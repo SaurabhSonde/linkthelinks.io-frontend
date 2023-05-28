@@ -5,7 +5,7 @@ import axios from 'axios';
 import constant from '../constant'
 
 
-const signup = () => {
+const Signup = () => {
   const [values, setValues] = useState({
     email: 'saurabhsonde111@gmail.com',
     password: 'Saurabh@123',
@@ -66,7 +66,7 @@ const signup = () => {
               <a href="">Forgot password?</a>
               <button onClick={onSubmit}>Signin</button>
               <p>
-                Don't have an account?
+                Don&apos;t have an account?
                 <a href="">Signup</a>
               </p>
             </form>
@@ -88,4 +88,4 @@ const signup = () => {
     </div>
   );
 };
-export default signup;
+export default Signup;
