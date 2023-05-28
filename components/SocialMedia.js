@@ -14,6 +14,7 @@ const SocialMedia = () => {
         url: ""
     })
     const [socialMedia, setSocialMedia] = useState([])
+    const [loading, setLoading] = useState(false)
 
     useEffect(() => {
         loadUserInfo()
@@ -40,6 +41,7 @@ const SocialMedia = () => {
 
     const addSocialMedia = async () => {
         try {
+            setLoading(true)
             const token = localStorage.getItem('token')
             const user = jwtDecode(token)
             const response = await axios.post(`${constant.url}/add/social/media/${user._id}`, infoUpdate, {
@@ -50,12 +52,13 @@ const SocialMedia = () => {
             })
             setSocialMedia(response.data.user.socialLinks)
             toast.success('Social Media Added Successfully.')
+            setLoading(false)
         } catch (error) {
             toast.error('Opps, something went wrong.')
+            setLoading(false)
         }
     }
 
-    console.log(socialMedia)
 
     const renderSocialMediaIcon = (data) => {
         if (data === 'Facebook') {
@@ -91,9 +94,9 @@ const SocialMedia = () => {
                 <input type="text" value={infoUpdate?.url} onChange={(e) => {
                     setInfoUpdate({ ...infoUpdate, url: e.target.value })
                 }} placeholder='Your social media link goes here' />
-                <button onClick={() => {
+                {loading ? <button>Loading...</button> : <button onClick={() => {
                     addSocialMedia()
-                }}>Add</button>
+                }}>Add</button>}
             </div>
 
             <div className={style.linksContainer}>

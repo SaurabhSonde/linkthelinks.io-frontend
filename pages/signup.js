@@ -1,8 +1,10 @@
 import React, { useState } from "react";
-import { Signup } from "../apiHelpers/authHelper";
 import signupStyle from "../styles/signup.module.css";
 import Router from "next/router";
 import { toast } from 'react-toastify';
+import constant from '../constant'
+import axios from 'axios';
+
 
 const signup = () => {
   const [values, setValues] = useState({
@@ -14,6 +16,7 @@ const signup = () => {
     error: "",
     success: false,
   });
+  const [loading, setLoading] = useState(false)
 
   const { name, userName, email, mobile, password, error, success } = values;
 
@@ -21,30 +24,22 @@ const signup = () => {
     setValues({ ...values, error: false, [name]: event.target.value });
   };
 
-  const onSubmit = (event) => {
-    event.preventDefault();
-    setValues({ ...values, error: false });
-    Signup({ name, userName, email, mobile, password })
-      .then((data) => {
-        if (data?.error) {
-          setValues({ ...values, error: data.error, success: false });
-          return toast.error(data.error)
-        } else {
-          setValues({
-            ...values,
-            name: "",
-            userName: "",
-            email: "",
-            password: "",
-            error: "",
-            success: true,
-          });
-          localStorage.setItem('token', data.token);
-          Router.push("/dashboard");
-        }
-      })
-      .catch(console.log("Error in signup"));
+  const onSubmit = async (event) => {
+    try {
+      setLoading(true)
+      event.preventDefault();
+      setValues({ ...values, error: false });
+      const response = await axios.post(`${constant.url}/signup`, { email: email, password: password, mobile: mobile, userName: userName, name: name })
+      localStorage.setItem('token', response.data.token);
+      setLoading(false)
+      Router.push("/user/dashboard");
+    } catch (error) {
+      setLoading(false)
+      toast.error(error.response.data.error || 'Opps, something went wrong! Please try again')
+    }
   };
+
+
   return (
     <div className={signupStyle.boxes}>
       <div className={signupStyle.boxOne}>
@@ -86,7 +81,7 @@ const signup = () => {
               onChange={handleChange("password")}
               value={password}
             />
-            <button onClick={onSubmit}>Create My Account</button>
+            {loading ? <button>Loading...</button> : <button onClick={onSubmit}>Create My Account</button>}
             <p>
               By registering you agree to our
               <a>Terms of Service, Privacy Policy</a>
