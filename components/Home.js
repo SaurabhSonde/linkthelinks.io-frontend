@@ -6,7 +6,14 @@ import jwtDecode from 'jwt-decode'
 const Home = () => {
   const [userInfo, setUserInfo] = useState({});
   const [mostClickLinks, setMostClickLinks] = useState([]);
+  const [mostVisited, setMostVisited] = useState([])
 
+
+  useEffect(() => {
+    loadUserInfo();
+    loadMostClickLinks();
+    loadMostVisitedLinks()
+  }, []);
 
   const loadUserInfo = async () => {
     try {
@@ -40,10 +47,23 @@ const Home = () => {
     }
   };
 
-  useEffect(() => {
-    loadUserInfo();
-    loadMostClickLinks();
-  }, []);
+  const loadMostVisitedLinks = async () => {
+    try {
+      const token = localStorage.getItem('token')
+      const user = jwtDecode(token)
+      const response = await axios.get(`${constant.url}/most/visits/country/${user._id}`, {
+        headers: {
+          Accept: 'application/json',
+          Authorization: `Bearer ${token}`,
+        }
+      })
+      setMostVisited(response.data.data)
+    } catch (error) {
+      console.log(error)
+    }
+  };
+
+
   return (
     <div className={dashStyle.middleSection}>
       <h1>Hello {userInfo.name}👋🏻</h1>
@@ -90,14 +110,15 @@ const Home = () => {
             <img src="/MostVisits.svg" alt="most clicks" />
             <h1>Most Visits</h1>
           </div>
-          {mostClickLinks.map((link, index) => {
+          {mostVisited.map((data, index) => {
             return (
-              <div className={dashStyle.mostVisits} key={index} onClick={() => {
-                window.open(link.shortUrl)
-              }} style={{
+              <div className={dashStyle.mostVisits} key={index} style={{
                 cursor: "pointer"
               }}>
-                <span>{link.title}</span>
+                <span>{data.country}</span>
+                <span style={{
+                  marginLeft: "10px"
+                }}>{data.percentage}%</span>
               </div>
             );
           })}
