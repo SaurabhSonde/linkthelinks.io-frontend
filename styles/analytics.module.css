@@ -1,0 +1,9 @@
+.analyticsContainer {
+    width: 600px;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 30px;
+    overflow: scroll;
+}

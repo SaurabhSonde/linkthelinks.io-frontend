@@ -74,6 +74,10 @@ const UserDashboard = () => {
               <img src="/addlinks.svg" />
               <span>Add Links</span>
             </button>
+            <button className={dashStyle.btn} onClick={() => changeTheContainers('analytics')}>
+              <img src="/analytics.svg" />
+              <span>Analytics</span>
+            </button>
             <button className={dashStyle.btn} onClick={() => {
               localStorage.clear()
               Router.push('/signin')

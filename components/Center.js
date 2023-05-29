@@ -5,6 +5,7 @@ import Home from './Home';
 import Profile from './Profile';
 import SocialMedia from './SocialMedia';
 import AddLinks from './AddLinks';
+import Analytics from './Analytics';
 
 const Center = () => {
   const context = useContext(AppContext);
@@ -15,6 +16,7 @@ const Center = () => {
       {context.centerContainer === "profile" ? <Profile /> : null}
       {context.centerContainer === "socialmedia" ? <SocialMedia /> : null}
       {context.centerContainer === "addlinks" ? <AddLinks /> : null}
+      {context.centerContainer === "analytics" ? <Analytics /> : null}
     </div>
   );
 };
