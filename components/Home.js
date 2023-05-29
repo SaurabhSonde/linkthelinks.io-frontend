@@ -75,8 +75,12 @@ const Home = () => {
           </div>
           {mostClickLinks.map((link, index) => {
             return (
-              <div className={dashStyle.mostClickLinks} key={index}>
-                <a href={link.shortUrl}>{link.title}</a>
+              <div className={dashStyle.mostClickLinks} key={index} onClick={() => {
+                window.open(link.shortUrl)
+              }} style={{
+                cursor: "pointer"
+              }}>
+                <span>{link.title}</span>
               </div>
             );
           })}
@@ -88,8 +92,12 @@ const Home = () => {
           </div>
           {mostClickLinks.map((link, index) => {
             return (
-              <div className={dashStyle.mostVisits} key={index}>
-                <a href={link.shortUrl}>{link.title}</a>
+              <div className={dashStyle.mostVisits} key={index} onClick={() => {
+                window.open(link.shortUrl)
+              }} style={{
+                cursor: "pointer"
+              }}>
+                <span>{link.title}</span>
               </div>
             );
           })}

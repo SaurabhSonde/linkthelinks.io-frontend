@@ -55,6 +55,8 @@ const AllLinks = () => {
                 }
             })
             toast.success("Link deleted successfully.")
+            const data = links.filter((link) => link._id !== linkId)
+            setLinks(data)
         } catch (error) {
             toast.success("Failed to delete link.")
             console.log(error)
@@ -77,7 +79,7 @@ const AllLinks = () => {
 
             <div className={style.linksContainer}>
                 <Modal show={showModal} close={close} />
-                {links.map((data, index) => {
+                {links.length === 0 ? null : links.map((data, index) => {
                     return <div className={style.link} key={index}>
                         <span>{data.title}</span>
                         <svg width="24px" height="24px" viewBox="0 0 24 24" strokeWidth="1.5" fill="none" xmlns="http://www.w3.org/2000/svg" color="#000000" onClick={() => {

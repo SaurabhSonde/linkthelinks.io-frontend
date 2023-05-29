@@ -70,7 +70,7 @@ const UserDashboard = () => {
               <img src="/socialmedia.svg" />
               <span>Social Media</span>
             </button>
-            <button className={dashStyle.btn}>
+            <button className={dashStyle.btn} onClick={() => changeTheContainers('addlinks')}>
               <img src="/addlinks.svg" />
               <span>Add Links</span>
             </button>
