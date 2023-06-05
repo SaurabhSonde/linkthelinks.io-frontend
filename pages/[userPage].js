@@ -55,6 +55,10 @@ const userPage = ({ userPage }) => {
     <div>
       <Head>
         <title>@{userPage.user.userName}</title>
+        <meta
+          name="description"
+          content={userPage.user.bio}
+        />
         <style>
           {`body { background-color: ${userPage.user.backgroundColor};}`}
         </style>
