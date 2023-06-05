@@ -111,7 +111,11 @@ const userPage = ({ userPage }) => {
         {userPage.links.map((link, index) => {
           return (
             <div className={userPageStyle.link} key={index}>
-              <a href={link.shortUrl}>{link.title}</a>
+              <span onClick={() => {
+                window.open(link.shortUrl)
+              }} style={{
+                cursor: "pointer"
+              }}>{link.title}</span>
               <img
                 src="/thumbs-up.svg"
                 alt="like"
