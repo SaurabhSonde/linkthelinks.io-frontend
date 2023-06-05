@@ -115,7 +115,14 @@ const UserDashboard = () => {
                 {userInfo.totalClicks}
               </span>
             </button>
-            <button className={dashStyle.btnAnalytics}>
+            <button className={dashStyle.btnAnalytics} onClick={() => {
+              window.open(`https://web.whatsapp.com/send?text=
+              Link In The Bio Stats
+              Total Clicks=${userInfo?.totalClicks}
+              Per Day Clicks=${userInfo?.perDayClicks}
+              Visitors=${userInfo?.visitors}
+              `)
+            }}>
               <img src="/Share.svg" />
               <span>Share Stats</span>
             </button>
