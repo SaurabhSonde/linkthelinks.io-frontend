@@ -88,15 +88,6 @@ const AllLinks = () => {
                     </div>
                 })}
             </div>
-
-            <div className={style.addLinkButtonContainer}>
-                <button onClick={() => {
-                    setShowModal(true)
-                }}>
-                    Add Link
-                </button>
-            </div>
-
         </div>
     );
 }
