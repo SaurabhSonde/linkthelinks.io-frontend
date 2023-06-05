@@ -54,7 +54,7 @@ const userPage = ({ userPage }) => {
   return (
     <div>
       <Head>
-        <title>@{userPage.user.userName}</title>
+        <title>@{userPage.user.userName} - Link In The Bio</title>
         <meta
           name="description"
           content={userPage.user.bio}
