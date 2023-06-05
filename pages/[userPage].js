@@ -62,7 +62,7 @@ const userPage = ({ userPage }) => {
 
       <ToastContainer />
       <div className={userPageStyle.profilePic}>
-        {/* <img src={userPage.user.profilePic}></img> */}
+        <img src='https://images.unsplash.com/photo-1456327102063-fb5054efe647?ixlib=rb-0.3.5&q=80&fm=jpg&crop=faces&fit=crop&h=200&w=200&s=f05c14dd4db49f08a789e6449604c490'></img>
         <span>@{userPage.user.userName}</span>
       </div>
       <div className={userPageStyle.socialMedia}>
