@@ -77,6 +77,7 @@ const Profile = () => {
                 <textarea type="text" value={infoUpdate?.bio} placeholder='Your bio goes here' onChange={(e) => {
                     setInfoUpdate({ ...infoUpdate, bio: e.target.value })
                 }} />
+                <input type="text" value={`https://linkinthebio.vercel.app/${userInfo?.userName}`} disabled />
                 <button onClick={() => {
                     updateInfo()
                 }}>Update</button>

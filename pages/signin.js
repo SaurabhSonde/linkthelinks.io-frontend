@@ -3,6 +3,7 @@ import signinStyle from '../styles/signin.module.css';
 import Router from 'next/router';
 import axios from 'axios';
 import constant from '../constant'
+import { toast } from 'react-toastify';
 
 
 const Signup = () => {
@@ -12,7 +13,9 @@ const Signup = () => {
     error: '',
   });
 
-  const { email, password, error, loading, didRedirect } = values;
+  const [loading, setLoading] = useState(false)
+
+  const { email, password, error, didRedirect } = values;
 
   const handleChange = (name) => (event) => {
     setValues({ ...values, error: false, [name]: event.target.value });
@@ -20,13 +23,16 @@ const Signup = () => {
 
   const onSubmit = async (event) => {
     try {
+      setLoading(true)
       event.preventDefault();
-      setValues({ ...values, error: false, loading: true });
+      setValues({ ...values, error: false });
       const response = await axios.post(`${constant.url}/signin`, { email: values.email, password: values.password })
       localStorage.setItem('token', response.data.token)
+      setLoading(false)
       Router.push('/user/dashboard');
     } catch (error) {
-      setValues(...values, error.response.data.error)
+      setLoading(false)
+      toast.error('Failed to signin.')
       console.log(error)
     }
   };
@@ -64,7 +70,7 @@ const Signup = () => {
               <br />
               <br />
               <a href="">Forgot password?</a>
-              <button onClick={onSubmit}>Signin</button>
+              <button onClick={onSubmit}>{loading ? "Loading..." : "Signin"}</button>
               <p>
                 Don&apos;t have an account?
                 <a href="">Signup</a>

@@ -31,7 +31,7 @@ export const getServerSideProps = async (ctx) => {
 
 const likeClick = async (linkId) => {
   try {
-    await axios.put(`${constant.url}/api/like/${linkId}`)
+    await axios.put(`${constant.url}/like/${linkId}`)
     likeToast()
   } catch (error) {
     console.log(error)
@@ -62,7 +62,7 @@ const userPage = ({ userPage }) => {
 
       <ToastContainer />
       <div className={userPageStyle.profilePic}>
-        <img src={userPage.user.profilePic}></img>
+        {/* <img src={userPage.user.profilePic}></img> */}
         <span>@{userPage.user.userName}</span>
       </div>
       <div className={userPageStyle.socialMedia}>
@@ -70,24 +70,32 @@ const userPage = ({ userPage }) => {
           return (
             <div key={index}>
               {sociallink.socialMedia === "Instagram" ? (
-                <img src="/instagram.svg" alt="social media" />
+                <img src="/instagram.svg" alt="social media" onClick={() => {
+                  window.open(sociallink.url)
+                }} />
               ) : (
                 ""
               )}
 
               {sociallink.socialMedia === "Facebook" ? (
-                <img src="/facebook.svg" alt="social media" />
+                <img src="/facebook.svg" alt="social media" onClick={() => {
+                  window.open(sociallink.url)
+                }} />
               ) : (
                 ""
               )}
               {sociallink.socialMedia === "Twitter" ? (
-                <img src="/twitter.svg" alt="social media" />
+                <img src="/twitter.svg" alt="social media" onClick={() => {
+                  window.open(sociallink.url)
+                }} />
               ) : (
                 ""
               )}
 
               {sociallink.socialMedia === "LinkedIn" ? (
-                <img src="/linkedin.svg" alt="social media" />
+                <img src="/linkedin.svg" alt="social media" onClick={() => {
+                  window.open(sociallink.url)
+                }} />
               ) : (
                 ""
               )}
